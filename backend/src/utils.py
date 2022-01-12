@@ -1,11 +1,11 @@
 import pandas as pd
 
-def __convert_to_geojson__(heatmap):
+def __convert_to_geojson__(heatmap, prev):
     geojson = {}
     geojson["type"] = "FeatureCollection"
     features = []
     i = 0
-    
+
     for key in heatmap:
         latitude, longtitude = key.split(";")
         latitude, longtitude = float(latitude), float(longtitude)
@@ -14,7 +14,8 @@ def __convert_to_geojson__(heatmap):
             "type" : "Feature",
             "properties" : {
                 "id": i,
-                "intensity": heatmap[key]
+                "intensity": heatmap[key],
+                "number" : prev[key]
             },
             "geometry" : {
                 "type": "Point",
@@ -47,6 +48,8 @@ def calculate_heatmap(accidents: list, detail=3):
     min_value = min(heatmap.values())
     max_value = max(heatmap.values())
 
+    prev = heatmap.copy()
+
     for key in heatmap:
         x = heatmap[key]
         if (max_value - min_value == 0):
@@ -54,4 +57,4 @@ def calculate_heatmap(accidents: list, detail=3):
         else:
             heatmap[key] = round((x - min_value) / (max_value - min_value), 4)
 
-    return __convert_to_geojson__(heatmap)
+    return __convert_to_geojson__(heatmap, prev)
