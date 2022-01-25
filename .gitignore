@@ -102,3 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+/backend/poetry.lock
+/backend/src/__pycache__
+/backend/src/models/__pycache__
+
+/backend/database-data

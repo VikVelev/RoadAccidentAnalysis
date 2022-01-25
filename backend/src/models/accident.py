@@ -1,6 +1,6 @@
 from peewee import *
 
-database = PostgresqlDatabase('RoadAccidentsDB', **{'user': 'postgres', 'password': 'mitkopostgres'})
+database = PostgresqlDatabase('postgres', **{'user': 'postgres', 'password': 'postgres', 'host' : '172.20.0.2'})
 
 class UnknownField(object):
     def __init__(self, *_, **__): pass
@@ -9,7 +9,7 @@ class BaseModel(Model):
     class Meta:
         database = database
 
-class Roadaccidentstable(BaseModel):
+class RoadAccident(BaseModel):
     _1st_road_class = IntegerField(column_name='1st_Road_Class', null=True)
     _1st_road_number = IntegerField(column_name='1st_Road_Number', null=True)
     _2nd_road_class = IntegerField(column_name='2nd_Road_Class', null=True)
@@ -39,6 +39,6 @@ class Roadaccidentstable(BaseModel):
     weather_conditions = IntegerField(null=True)
 
     class Meta:
-        table_name = 'roadaccidentstable'
+        table_name = 'road_accidents_table'
         primary_key = False
 

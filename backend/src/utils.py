@@ -37,8 +37,8 @@ def calculate_heatmap(accidents: list, detail=3):
 
     for a in accidents:
         try:
-            latitude = round(float(a.lat), detail)
-            longtitude = round(float(a.long), detail)
+            latitude = round(float(a.latitude), detail)
+            longtitude = round(float(a.longitude), detail)
             key = str(latitude) + ";" + str(longtitude)
             heatmap[key] = heatmap.get(key, 0) + 1
         except:
