@@ -10,9 +10,10 @@ from peewee import *
 
 app = Flask(__name__, static_folder = "/static", static_url_path = "/static")
 
+db_ip = '172.18.0.3'
 # TEMPORARY, TODO: Substitude with actual database
 # db = pd.read_csv('dataset.csv')
-db = PostgresqlDatabase('postgres', **{'user': 'postgres', 'password': 'postgres', 'host' : '172.20.0.2'})
+db = PostgresqlDatabase('postgres', **{'user': 'postgres', 'password': 'postgres', 'host' : db_ip })
 db.connect()
 
 '''
