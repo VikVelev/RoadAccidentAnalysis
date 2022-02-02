@@ -1,6 +1,6 @@
 from peewee import *
 
-db_ip = '172.18.0.3'
+db_ip = '172.18.0.2'
 
 database = PostgresqlDatabase('postgres', **{'user': 'postgres', 'password': 'postgres', 'host' : db_ip})
 

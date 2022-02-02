@@ -23,13 +23,18 @@ def build_or_query(db_property, possible_properties):
 
 
 '''
-A list of all possible values:
+    Returns a heatmap based on the filters specified
+    - no filter = all results
+    - filter is a json format as follows "key" : [possible value 1, possible value 2]
+    
+    A list of all possible values:
     {
-        "light_conditions" : ( 1 | 4 | 5 | 6 | 7 | -1 (missing)),      # DONE
-        "weather_conditions": ( 1 to 8 | 9 (unknown) | -1 (missing)), 
+        "detail" : positive number
+        "light_conditions" : ( 1 | 4 | 5 | 6 | 7 | -1 (missing)),
+        "weather_conditions": ( 1 to 8 | 9 (unknown) | -1 (missing)),
         "road_surface_conditions": ( 1 to 7 | 9 (unkown) | -1 (missing)),
+        "special_conditions" : ( 0 to 7 | 9 (unknown) | -1 (missing)),
         "urbal_or_rural_area" : ( 1 | 2 | 3 | -1 (missing)),
-        "junction_location" : TODO
         "day_of_week" : ( 1 - Sunday to 7 - Saturday),
         "date" : {
             "start_date" : some date, (optional)

@@ -8,10 +8,8 @@ import HeatmapLayer from "./components/Heatmap";
 function App() {
   return (
     <MapContainer center={[51, 0]} zoom={250} scrollWheelZoom={true} touchZoom={false}>
-      <TileLayer
-    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      />
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'/>
       <HeatmapLayer/>
     </MapContainer>
   );

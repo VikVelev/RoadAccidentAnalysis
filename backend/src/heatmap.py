@@ -31,9 +31,9 @@ def __convert_to_geojson__(heatmap, before_lod, additional_data): # before_lod =
     return geojson
 
 '''
-Accepts a list of accidents (src.models.accident.Accident)
-calculates a number of intensity between 0 and 1
-returns a map of coordinates and as a value the intensity
+    Accepts a list of accidents (src.models.accident.Accident)
+    calculates a number of intensity between 0 and 1
+    returns a map of coordinates and as a value the intensity
 '''
 def calculate_heatmap(accidents: list, detail=3):
 
