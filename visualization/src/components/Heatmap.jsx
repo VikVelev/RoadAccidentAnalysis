@@ -15,7 +15,8 @@ export default function HeatmapLayer(props) {
 
     const map = useMap();
 
-    console.log("RENDERING HEATMAP", {props}, layers);
+    // console.log("RENDERING HEATMAP", {props}, layers);
+    
     if (layers !== undefined) {
         layers.forEach((x) => map.removeLayer(x));
     }

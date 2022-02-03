@@ -19,8 +19,8 @@ export const useInput = (initialValue) => {
 
 export default function FilteringOptions(props) {
 
-	const { value: startDate, bind: bindStartDate } = useInput("02/02/2015");
-	const { value: endDate, bind: bindEndDate } = useInput("02/04/2015");
+	const { value: startDate, bind: bindStartDate } = useInput("2015-02-02");
+	const { value: endDate, bind: bindEndDate } = useInput("2015-02-04");
 	const [ state, setState ] = useState({
 		"detail" : 3,
         "light_conditions" : null,				// ( 1 | 4 | 5 | 6 | 7 | -1 (missing)),
@@ -29,8 +29,8 @@ export default function FilteringOptions(props) {
         "urban_or_rural_area" : null, 			// ( 1 | 2 | 3 | -1 (missing)),
         "day_of_week" : null, 					// ( 1 - Sunday to 7 - Saturday),
         "date" : {
-            "start" : "02-02-2015", // some date, (optional)
-            "end" :  "02-04-2015" // some date,   (optional)
+            "start" : "2015-02-02", // some date, (optional)
+            "end" :  "2015-02-04" // some date,   (optional)
         }
     });
 
@@ -366,7 +366,7 @@ export default function FilteringOptions(props) {
 					}/>
 					<Popup content='Unallocated' trigger={
 						<div>
-						<Button circular name='3' icon='question' color={internal.urban_or_rural_area["3"] ? 'green' : null} onClick={handleUrban("3")}/>
+							<Button circular name='3' icon='question' color={internal.urban_or_rural_area["3"] ? 'green' : null} onClick={handleUrban("3")}/>
 						</div>
 					}/>
 					<Popup content='Data missing' trigger={
@@ -430,24 +430,27 @@ export default function FilteringOptions(props) {
 					<div>
 						<h4> Start </h4>
 						<input type="date" id="start" name="trip-start" value={startDate}
-							min="2014-12-12" max="2016-01-01" {...bindStartDate}/>
+							min="2015-01-01" max="2015-12-31" {...bindStartDate}/>
 					</div>
 					<div>
 						<h4> End </h4>
 						<input type="date" id="start" name="trip-start" value={endDate}
-							min="2014-12-12" max="2016-01-01" {...bindEndDate}/>
+							min="2015-01-01" max="2015-12-31" {...bindEndDate}/>
 					</div>
 				</div>
 			</div>
 			<br/>
+			<div>
 			<Button className="submit-button" onClick={handleSubmit} color='blue'>
 				Submit
 			</Button>
+			</div>
+
 			<br/>
 			<h4>
-				Number of data points currently displayed: {props.numDataPoints !== undefined ? props.numDataPoints : 0} 
+				Number of data points currently displayed: <b>{props.numDataPoints !== undefined ? props.numDataPoints : 0}</b> 
 				<br/>
-				<h6>Showing period between {startDate} till {endDate} </h6>
+				<i>Showing period between <b>{startDate}</b> till <b>{endDate}</b> </i>
 			</h4>
 		</div>
 	</div>;

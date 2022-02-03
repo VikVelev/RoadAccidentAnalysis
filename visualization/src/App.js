@@ -9,11 +9,11 @@ function App() {
 
   const [ state, setState ] = useState({
     query_parameters: {
-        "detail" : 4,
+        "detail" : 3,
         "light_conditions" : [ 1, 4, 6 ],
         "date" : {
-            "start" : "02/02/2015",
-            "end" : "02/04/2015"
+            "start" : "2015-02-02",
+            "end" : "2015-02-04"
         }
     },
     data : [],
@@ -27,17 +27,16 @@ function App() {
 	async function queryBackend(query_parameters) {
     if (query_parameters === undefined || query_parameters === null) {
       query_parameters = {
-          "detail" : 4,
-          "light_conditions" : [ 1, 4, 6 ],
+          "detail" : 3,
           "date" : {
-              "start" : "02/02/2015",
-              "end" : "02/04/2015"
+              "start" : "2015-02-02",
+              "end" : "2015-02-04"
           }
       }
     }
 
     query_parameters = Object.fromEntries(Object.entries(query_parameters).filter(([_, v]) => v != null));
-    console.log("QUERY PARAMS: " + JSON.stringify(query_parameters));
+    // console.log("QUERY PARAMS: " + JSON.stringify(query_parameters));
 
     setState(query_parameters);
 
@@ -47,7 +46,7 @@ function App() {
     );
     
     setState({ ...state, data: data.data.features })
-    console.log("RESPONSE", data);
+    // console.log("RESPONSE", data);
 	}
 
   useEffect(queryBackend, []);
