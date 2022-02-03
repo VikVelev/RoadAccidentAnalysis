@@ -44,10 +44,12 @@ def get_data():
     
     filter_conditions = request.json
     
-    if filter_conditions["detail"] is not None:
+    detail_level = None
+
+    if "detail" in filter_conditions:
         detail_level = filter_conditions["detail"]
     
-    if detail_level is None and detail_level > 0:
+    if detail_level is not None and detail_level > 0:
         detail_level = 5
 
     data = filter_accidents(filter_conditions)
