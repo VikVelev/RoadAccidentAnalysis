@@ -85,7 +85,7 @@ input[type='date'] {
   color: #32325d;
 }
 
-body > div:nth-child(3) {
+.ui.top.left.popup {
   z-index: 100000 !important;
 }
 
@@ -98,7 +98,7 @@ button {
   bottom: 0;
   right: 0;
   margin: 15px;
-  z-index: 100000;
+  z-index: 1000000;
 }
 
 .correlation-button {

@@ -7,7 +7,10 @@ import 'semantic-ui-css/semantic.min.css';
 import 'antd/dist/antd.css';
 
 ReactDOM.render(
-    <App/>,
+    <React.StrictMode>
+      <App/>
+
+      </React.StrictMode>,
   document.getElementById('root')
 );
 
