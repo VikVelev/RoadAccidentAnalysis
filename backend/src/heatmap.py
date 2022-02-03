@@ -28,6 +28,7 @@ def __convert_to_geojson__(heatmap, before_lod, additional_data): # before_lod =
         i += 1
 
     geojson["features"] = features
+    print("after aggregation: " + str(len(features)))
     return geojson
 
 '''

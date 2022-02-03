@@ -49,8 +49,8 @@ def get_data():
     if "detail" in filter_conditions:
         detail_level = filter_conditions["detail"]
     
-    if detail_level is not None and detail_level > 0:
-        detail_level = 5
+    if detail_level is None or detail_level < 0:
+        detail_level = 3
 
     data = filter_accidents(filter_conditions)
     

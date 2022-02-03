@@ -25,14 +25,23 @@ export default function HeatmapLayer(props) {
     const points = data ? data.map((p) => {
         let coords = p.geometry.coordinates
         let intensity = p.properties.intensity
-        return [coords[1], coords[0], intensity * 2000]; // lat lng intensity
+        return [coords[1], coords[0], intensity * 500]; // lat lng intensity
     }) : [];
 
     const markers = data ? data.map((p) => {
         let coords = p.geometry.coordinates
         let marker = L.marker([coords[1], coords[0]])
         marker.setOpacity(0);
-        marker.bindPopup(JSON.stringify(p));
+
+        let lastAccidentDate = p.properties.most_recent_accident_date.toString();
+        // {"geometry":{"coordinates":[-1.893,52.434],"type":"Point"},"properties":{"id":105,"intensity":0.0909,"local_authority":"Birmingham","most_recent_accident_date":"Tue, 03 Feb 2015 00:00:00 GMT","number_of_accidents":2,"number_of_casualties":2,"number_of_vehicles":4},"type":"Feature"}
+        let description = "Number of accidents: <b>" + p.properties.number_of_accidents + "</b><br>" +
+                          "Involved vehicles: <b>" + p.properties.number_of_vehicles + "</b><br>" +
+                          "Casualties: <b>" + p.properties.number_of_casualties + "</b><br>" +
+                          "Local authority: <b>" + p.properties.local_authority + "</b><br>" +
+                          "Latest accident: <b>" + lastAccidentDate.slice(0, lastAccidentDate.length - 13) + "</b>"
+
+        marker.bindPopup(description);
         
         let icon = marker.options.icon;
         icon.options.iconSize = [50, 50];

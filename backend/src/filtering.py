@@ -81,5 +81,5 @@ def filter_accidents(args):
         final_condition &= date_condition
 
     res = RoadAccident.select().where(final_condition)
-
+    print(len(res))
     return res
