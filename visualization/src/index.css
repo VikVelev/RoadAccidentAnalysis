@@ -113,3 +113,7 @@ button {
   border-radius: 1em !important;
   box-shadow: #666 0 0 0.8em 0.05em;
 }
+
+.correlation-plot > div {
+  z-index: -1 !important;
+}
