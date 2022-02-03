@@ -35,9 +35,7 @@ export default function FilteringOptions(props) {
 				selected.push(column)
 				setSelected(selected)
 				
-				console.log(selected);
 				let res = await axios.post("http://localhost:4242/correlation", { "columns": selected })
-				console.log(res);
 				setCorr(res.data.correlation);
 			}
 		} else {
@@ -47,7 +45,6 @@ export default function FilteringOptions(props) {
 				setSelected(selected);
 
 				let res = await axios.post("http://localhost:4242/correlation", { columns: selected })
-				console.log(res);
 				setCorr(res.data.correlation);
 			}
 		}
