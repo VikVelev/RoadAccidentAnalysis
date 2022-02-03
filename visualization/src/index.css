@@ -20,7 +20,7 @@ body {
   transition: all 0.2s;
   transition-property: margin-left;
   transition-timing-function: ease-in-out;
-  transition-delay: 5s;
+  transition-delay: 0.5s;
 }
 
 .filtering-options-container:hover {
@@ -91,4 +91,25 @@ body > div:nth-child(3) {
 
 button {
   padding: 0.78571429em 0.78571429em 0.78571429em !important;
+}
+
+.correlation-button-showup {
+  position:absolute;
+  bottom: 0;
+  right: 0;
+  margin: 15px;
+  z-index: 100000;
+}
+
+.correlation-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  height: 300px + 1.2em;
+  padding-top: 1.2em;
+
+  background-color: white;
+  border-radius: 1em !important;
+  box-shadow: #666 0 0 0.8em 0.05em;
 }

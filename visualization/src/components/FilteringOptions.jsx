@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Icon, Button, Popup } from 'semantic-ui-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRoad, faWind, faCloud, faIcicles, faOilCan, faCity, faHouse, faLocationDot, faWater, faCloudRain, faSnowflake, faWaterLadder, faHandHoldingWater, faTrash } from '@fortawesome/free-solid-svg-icons'
+import CorrelationButton from './CorrelationButton';
+import axios from 'axios';
 
 export const useInput = (initialValue) => {
     const [value, setValue] = useState(initialValue);
@@ -17,17 +19,47 @@ export const useInput = (initialValue) => {
     };
 };
 
+
 export default function FilteringOptions(props) {
 
 	const { value: startDate, bind: bindStartDate } = useInput("2015-02-02");
 	const { value: endDate, bind: bindEndDate } = useInput("2015-02-04");
+
+	const [ selected, setSelected ] = useState([]);
+	const [ corr, setCorr ] = useState(0);
+
+	const handleSelection = async (state, column) => {
+		if (Object.values(state).reduce((acc, curr) => curr || acc)) {
+			const index = selected.indexOf(column);
+			if (index < 0) {
+				selected.push(column)
+				setSelected(selected)
+				
+				console.log(selected);
+				let res = await axios.post("http://localhost:4242/correlation", { "columns": selected })
+				console.log(res);
+				setCorr(res.data.correlation);
+			}
+		} else {
+			const index = selected.indexOf(column);
+			if (index > -1) {
+				selected.splice(index, 1);
+				setSelected(selected);
+
+				let res = await axios.post("http://localhost:4242/correlation", { columns: selected })
+				console.log(res);
+				setCorr(res.data.correlation);
+			}
+		}
+	}
+
 	const [ state, setState ] = useState({
 		"detail" : 3,
-        "light_conditions" : null,				// ( 1 | 4 | 5 | 6 | 7 | -1 (missing)),
-        "weather_conditions": null,				// ( 1 to 8 | 9 (unknown) | -1 (missing)), 
-        "road_surface_conditions": null, 		// ( 1 to 7 | 9 (unkown) | -1 (missing)),
-        "urban_or_rural_area" : null, 			// ( 1 | 2 | 3 | -1 (missing)),
-        "day_of_week" : null, 					// ( 1 - Sunday to 7 - Saturday),
+        "light_conditions" : [],				// ( 1 | 4 | 5 | 6 | 7 | -1 (missing)),
+        "weather_conditions": [],				// ( 1 to 8 | 9 (unknown) | -1 (missing)), 
+        "road_surface_conditions": [], 		// ( 1 to 7 | 9 (unkown) | -1 (missing)),
+        "urban_or_rural_area" : [], 			// ( 1 | 2 | 3 | -1 (missing)),
+        "day_of_week" : [], 					// ( 1 - Sunday to 7 - Saturday),
         "date" : {
             "start" : "2015-02-02", // some date, (optional)
             "end" :  "2015-02-04" // some date,   (optional)
@@ -89,46 +121,58 @@ export default function FilteringOptions(props) {
 
 	const handleLight = (num) => {
 		return () => {
-			setInternal({
+			let internalState = {
 				...internal,
 				light_conditions: { ...internal.light_conditions, [num] : !internal.light_conditions[num] }
-			})
+			}
+			setInternal(internalState);
+			handleSelection(internalState.light_conditions, "Light_Conditions")
 		}
 	}
 
 	const handleWeather = (num) => {
 		return () => {
-			setInternal({
+			let internalState = {
 				...internal,
 				weather_conditions: { ...internal.weather_conditions, [num] : !internal.weather_conditions[num] }
-			})
+			}
+			setInternal(internalState);
+			handleSelection(internalState.weather_conditions, "Weather_Conditions")
 		}
 	}
 
 	const handleUrban = (num) => {
 		return () => {
-			setInternal({
+			let internalState = {
 				...internal,
 				urban_or_rural_area: { ...internal.urban_or_rural_area, [num] : !internal.urban_or_rural_area[num] }
-			})
+			}
+
+			setInternal(internalState)
+			handleSelection(internalState.urban_or_rural_area, "Urban_or_Rural_Area")
 		}
 	}
 
 	const handleRoad = (num) => {
 		return () => {
-			setInternal({
+			let internalState = {
 				...internal,
 				road_surface_conditions: { ...internal.road_surface_conditions, [num] : !internal.road_surface_conditions[num] }
-			})
+			}
+
+			setInternal(internalState);
+			handleSelection(internalState.road_surface_conditions, "Road_Surface_Conditions")
 		}
 	}
 
 	const handleWeek = (num) => {
 		return () => {
-			setInternal({
+			let internalState = {
 				...internal,
 				day_of_week: { ...internal.day_of_week, [num] : !internal.day_of_week[num] }
-			})
+			}
+			setInternal(internalState)
+			handleSelection(internalState.day_of_week, "Day_of_Week");
 		}
 	}
 
@@ -185,7 +229,7 @@ export default function FilteringOptions(props) {
 		changeOustideState(newState);
 	}
 
-	return <div className="filtering-options-container">
+	return <><div className="filtering-options-container">
 		<div className="filtering-header">
 			<p className="filtering-header-text">Analysis Options</p>
 			<Icon className="filtering-container-arrow" name="arrow right"/>
@@ -453,5 +497,6 @@ export default function FilteringOptions(props) {
 				<i>Showing period between <b>{startDate}</b> till <b>{endDate}</b> </i>
 			</h4>
 		</div>
-	</div>;
+	</div>
+	<CorrelationButton corr={corr}/></>;
 }
