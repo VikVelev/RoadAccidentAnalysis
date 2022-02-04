@@ -15,6 +15,20 @@ export default function HeatmapLayer(props) {
 
     const map = useMap();
 
+    useEffect(() => {
+
+        map.on('zoomend', () => {
+            if (map.getZoom() < 12){
+                map.removeLayer(layers[1]);
+            } else {
+                map.removeLayer(layers[1]);
+                map.addLayer(layers[1]);
+            }
+        })
+        
+
+    }, []);
+
     // console.log("RENDERING HEATMAP", {props}, layers);
     
     if (layers !== undefined) {
@@ -31,7 +45,11 @@ export default function HeatmapLayer(props) {
 
     const markers = data ? data.map((p) => {
         let coords = p.geometry.coordinates
-        let marker = L.marker([coords[1], coords[0]])
+        let divIcon = L.divIcon({
+            iconAnchor: [25, 25],
+            iconSize: [50, 50]
+        })
+        let marker = L.marker([coords[1], coords[0]], { icon: divIcon })
         marker.setOpacity(0);
 
         let lastAccidentDate = p.properties.most_recent_accident_date.toString();
@@ -43,11 +61,7 @@ export default function HeatmapLayer(props) {
                           "Latest accident: <b>" + lastAccidentDate.slice(0, lastAccidentDate.length - 13) + "</b>"
 
         marker.bindPopup(description);
-        
-        let icon = marker.options.icon;
-        icon.options.iconSize = [50, 50];
-        icon.options.iconAnchor = [ 25, 25];
-        marker.setIcon(icon);
+    
         return marker;
     }) : [];
 
@@ -55,7 +69,6 @@ export default function HeatmapLayer(props) {
     heatLayer.addTo(map);
 
     const markerLayer = L.layerGroup(markers);
-    markerLayer.addTo(map);
 
     layers = [heatLayer, markerLayer]
 

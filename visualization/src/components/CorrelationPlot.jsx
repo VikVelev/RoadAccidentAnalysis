@@ -15,7 +15,7 @@ function CorrelationPlot(props) {
                 staticPlot: true,
                 displayModeBar: false
             }}
-            layout={{ 
+            layout={{
                 xaxis: { range: [-1, 1], type: 'linear' }, 
                 yaxis: { range: [-1, 1], type: 'linear' }, 
                 width: 500, height: 400,
