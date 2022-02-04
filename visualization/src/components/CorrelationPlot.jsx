@@ -18,8 +18,14 @@ function CorrelationPlot(props) {
             layout={{ 
                 xaxis: { range: [-1, 1], type: 'linear' }, 
                 yaxis: { range: [-1, 1], type: 'linear' }, 
-                width: 400, height: 300,
-                title: 'Correlation between selected columns <br> and number of casualties (<b>r=' + (Math.round(props.corr * 100) / 100) + "</b>)." }}
+                width: 500, height: 500,
+                title: 'Correlation between <br>' + 
+                    (props.selected.length > 0 ?
+                        props.selected.reduce((acc, curr) => [((acc[1] % 3 == 0 && acc[1] != 0) ? acc[0] + (acc[1] != 0 ? ', ' : '') + '<br>' : acc[0] + (acc[1] != 0 ? ', ' : '')) + curr, acc[1] + 1], ['', 0])[0].replaceAll("_", " ") 
+                    : 'nothing')
+                    + '<br> and number of casualties (<b>r=' 
+                    + (Math.round(props.corr * 100) / 100) + "</b>)." 
+            }}
             
         />
     </div>

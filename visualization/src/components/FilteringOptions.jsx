@@ -51,7 +51,7 @@ export default function FilteringOptions(props) {
 	}
 
 	const [ state, setState ] = useState({
-		"detail" : 3,
+		"detail" : 4,
         "light_conditions" : [],				// ( 1 | 4 | 5 | 6 | 7 | -1 (missing)),
         "weather_conditions": [],				// ( 1 to 8 | 9 (unknown) | -1 (missing)), 
         "road_surface_conditions": [], 		// ( 1 to 7 | 9 (unkown) | -1 (missing)),
@@ -483,7 +483,7 @@ export default function FilteringOptions(props) {
 			<br/>
 			<div>
 			<Button className="submit-button" onClick={handleSubmit} color='blue'>
-				Submit
+				Refresh map
 			</Button>
 			</div>
 
@@ -495,5 +495,5 @@ export default function FilteringOptions(props) {
 			</h4>
 		</div>
 	</div>
-	<CorrelationButton corr={corr}/></>;
+	<CorrelationButton corr={corr} selected={selected}/></>;
 }

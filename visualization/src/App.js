@@ -9,7 +9,7 @@ function App() {
 
   const [ state, setState ] = useState({
     query_parameters: {
-        "detail" : 3,
+        "detail" : 4,
         "light_conditions" : [ 1, 4, 6 ],
         "date" : {
             "start" : "2015-02-02",
@@ -27,7 +27,7 @@ function App() {
 	async function queryBackend(query_parameters) {
     if (query_parameters === undefined || query_parameters === null) {
       query_parameters = {
-          "detail" : 3,
+          "detail" : 4,
           "date" : {
               "start" : "2015-02-02",
               "end" : "2015-02-04"

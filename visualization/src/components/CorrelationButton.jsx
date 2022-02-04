@@ -30,7 +30,7 @@ function CorrelationButton(props) {
                 padding: '0.5em'
               }}
             >
-              <CorrelationPlot corr={props.corr}/>
+              <CorrelationPlot corr={props.corr} selected={props.selected}/>
               <center>
               <p style={{ fontSize: '1em', marginTop: '-3em', zIndex: 100000 }}> <i>Higher <b>r</b> means that the combination of selected columns, <br></br> lead to higher probability of casualties.</i></p>
             </center>
