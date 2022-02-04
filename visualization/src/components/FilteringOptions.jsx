@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRoad, faWind, faCloud, faIcicles, faOilCan, faCity, faHouse, faLocationDot, faWater, faCloudRain, faSnowflake, faWaterLadder, faHandHoldingWater, faTrash } from '@fortawesome/free-solid-svg-icons'
 import CorrelationButton from './CorrelationButton';
 import axios from 'axios';
+import Legend from './Legend';
 
 export const useInput = (initialValue) => {
     const [value, setValue] = useState(initialValue);
@@ -226,7 +227,9 @@ export default function FilteringOptions(props) {
 		changeOustideState(newState);
 	}
 
-	return <><div className="filtering-options-container">
+	return <>
+	<Legend/>
+	<div className="filtering-options-container">
 		<div className="filtering-header">
 			<p className="filtering-header-text">Analysis Options</p>
 			<Icon className="filtering-container-arrow" name="arrow right"/>
@@ -495,5 +498,6 @@ export default function FilteringOptions(props) {
 			</h4>
 		</div>
 	</div>
-	<CorrelationButton corr={corr} selected={selected}/></>;
+	<CorrelationButton corr={corr} selected={selected}/>
+	</>;
 }
